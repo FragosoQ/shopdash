@@ -28,9 +28,10 @@ class App {
   initRenderer = () => {
     this.renderer = new THREE.WebGLRenderer({alpha: true});
     this.renderer.setClearColor(0x000000, 1.0);
-    // Position the canvas slightly left by 350px (visual offset)
+    // Position the canvas so globe center is 500px from left edge
     this.renderer.domElement.style.position = 'relative';
-    this.renderer.domElement.style.transform = 'translateX(-350px)';
+    this.renderer.domElement.style.left = '500px';
+    this.renderer.domElement.style.transform = 'translateX(-50%)';
     this.renderer.domElement.style.willChange = 'transform';
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.setPixelRatio(window.devicePixelRatio * 1.5);

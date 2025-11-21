@@ -51,8 +51,8 @@ canvas {
   position: fixed;
   top: 16px;
   left: 16px;
-	/* 30% smaller than original 16vw */
-	width: 11.2vw;
+	/* 80% smaller than original 16vw */
+	width: 3.2vw;
   height: auto;
   z-index: 1000;
   background: transparent;
