@@ -316,59 +316,54 @@ async function setup(app) {
   setupPeriodicRotation();
 }
 
+// Variáveis globais para controle de rotação periódica
+let isRotating = false;
+let rotationStartTime = 0;
+let initialRotationY = 0;
+const ROTATION_INTERVAL = 25 * 1000; // 25 segundos
+const ROTATION_DURATION = 5000; // 5 segundos para completar a volta
+
 /**
  * Configura rotação de 360 graus a cada 25 segundos
  */
 function setupPeriodicRotation() {
-  const ROTATION_INTERVAL = 25 * 1000; // 25 segundos em milissegundos
-  const ROTATION_DURATION = 5000; // 5 segundos para completar a volta
-  
-  let isRotating = false;
-  let rotationStartTime = 0;
-  let initialRotationY = 0;
-  
   // Inicia a primeira rotação após 25 segundos
   setTimeout(() => {
     startFullRotation();
     // Depois repete a cada 25 segundos
     setInterval(startFullRotation, ROTATION_INTERVAL);
   }, ROTATION_INTERVAL);
+}
+
+function startFullRotation() {
+  if (isRotating) return;
   
-  function startFullRotation() {
-    if (isRotating) return;
-    
-    isRotating = true;
-    rotationStartTime = Date.now();
-    initialRotationY = groups.globe.rotation.y;
-    
-    console.log('Starting 360° globe rotation');
-  }
+  isRotating = true;
+  rotationStartTime = Date.now();
+  initialRotationY = groups.globe.rotation.y;
   
-  // Adiciona ao loop de animação
-  const originalAnimate = window.animate;
-  window.animate = function(app) {
-    if (originalAnimate) originalAnimate(app);
-    
-    if (isRotating) {
-      const elapsed = Date.now() - rotationStartTime;
-      const progress = Math.min(elapsed / ROTATION_DURATION, 1);
-      
-      // Rotação completa de 360 graus (2 * PI radianos)
-      const rotationAmount = progress * Math.PI * 2;
-      groups.globe.rotation.y = initialRotationY + rotationAmount;
-      
-      // Para quando completar a volta
-      if (progress >= 1) {
-        groups.globe.rotation.y = initialRotationY; // Volta exatamente ao ponto inicial
-        isRotating = false;
-        console.log('360° rotation complete');
-      }
-    }
-  };
+  console.log('Starting 360° globe rotation');
 }
 
 
 function animate(app) {
+  // Lógica de rotação periódica
+  if (isRotating) {
+    const elapsed = Date.now() - rotationStartTime;
+    const progress = Math.min(elapsed / ROTATION_DURATION, 1);
+    
+    // Rotação completa de 360 graus (2 * PI radianos)
+    const rotationAmount = progress * Math.PI * 2;
+    groups.globe.rotation.y = initialRotationY + rotationAmount;
+    
+    // Para quando completar a volta
+    if (progress >= 1) {
+      groups.globe.rotation.y = initialRotationY;
+      isRotating = false;
+      console.log('360° rotation complete');
+    }
+  }
+
   if(controls.changed) {
     if(elements.globePoints) {
       elements.globePoints.material.size = config.sizes.globeDotSize;
