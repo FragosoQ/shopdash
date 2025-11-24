@@ -151,9 +151,34 @@ const initCharts = () => {
     });
 };
 
+/**
+ * Updates EVO progress bar
+ */
+const updateEvoProgress = async () => {
+    const percentage = await fetchPercentage('EVO');
+    const progressBar = document.getElementById('evo-progress');
+    
+    if (progressBar) {
+        progressBar.style.width = `${percentage}%`;
+    }
+};
+
+/**
+ * Initializes progress bar
+ */
+const initProgressBar = () => {
+    updateEvoProgress();
+    // Update every 30 seconds
+    setInterval(updateEvoProgress, 30000);
+};
+
 // Initialize when DOM is ready
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initCharts);
+    document.addEventListener('DOMContentLoaded', () => {
+        initCharts();
+        initProgressBar();
+    });
 } else {
     initCharts();
+    initProgressBar();
 }
