@@ -219,7 +219,7 @@ canvas {
 	right: 52px;
 	top: calc(25% - 35px);
 	height: 50%;
-	width: 8px;
+	width: 14px;
 	border-radius: 4px;
 	transition: background-color 0.3s ease, box-shadow 0.3s ease;
 	z-index: 1;
