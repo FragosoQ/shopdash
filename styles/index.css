@@ -5,7 +5,7 @@ html {
 	margin: 0;
 	padding: 0;
 	font-family: 'Open Sans', sans-serif;
-	background-color: black;
+	background: radial-gradient(circle, #01061a, #000000);
 }
 
 canvas {
@@ -111,9 +111,9 @@ canvas {
 	position: fixed;
 	top: 100px;
 	bottom: 60px;
-	right: 200px;
+	right: 50px;
 	display: grid;
-	grid-template-columns: repeat(2, 345px);
+	grid-template-columns: repeat(2, 397px);
 	grid-template-rows: 1fr 1fr 1fr;
 	gap: 20px;
 	z-index: 1000;
