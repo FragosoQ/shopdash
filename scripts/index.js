@@ -253,6 +253,13 @@ function animate(app) {
       for(let i = 0; i < elements.lines.length; i++) {
         const line = elements.lines[i];
         line.material.color.set(config.colors.globeLines);
+        
+        // Add pulsing effect to the line
+        const pulseSpeed = 0.002;
+        const minOpacity = 0.3;
+        const maxOpacity = 0.8;
+        const opacity = minOpacity + (Math.sin(Date.now() * pulseSpeed) + 1) / 2 * (maxOpacity - minOpacity);
+        line.material.opacity = opacity;
       }
     }
 
@@ -290,7 +297,9 @@ function animate(app) {
       if(marker.glow) {
         marker.glow.material.color.set(config.colors.globeMarkerGlow);
       }
-      marker.label.material.map.needsUpdate = true;
+      if(marker.label) {
+        marker.label.material.map.needsUpdate = true;
+      }
       // Ripple animation disabled
       // marker.animateGlow();
     }

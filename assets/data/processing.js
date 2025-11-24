@@ -101,6 +101,7 @@ function selectCountries(list, countries) {
 // Connections
 
 const connections = {
+  'Portugal': ['Nigeria'],
   'Colombia': ['Ecuador', 'Cuba', 'Mexico', 'Peru', 'Venezuela, RB', 'Guyana', 'United States'],
   'South Sudan': ['Nigeria', 'Sudan', 'Kenya', 'Uganda', 'Zambia', 'Malawi', 'Ethiopia', 'Somalia', 'Madagascar', 'Yemen, Rep.'],
   'India': ['Pakistan', 'Kazakhstan', 'Maldives', 'Sri Lanka', 'Vietnam', 'Thailand'],

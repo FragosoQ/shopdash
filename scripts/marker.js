@@ -29,6 +29,12 @@ class Marker {
   }
 
   createLabel() {
+    // Only create label for Portugal and Nigeria
+    if (this.countryName !== 'Portugal' && this.countryName !== 'Nigeria') {
+      this.label = null;
+      return;
+    }
+
     const text = this.createText();
     const texture = new THREE.Texture(text);
     texture.minFilter = THREE.LinearFilter;
@@ -96,10 +102,29 @@ class Marker {
     const canvas = new fabric.Canvas(element);
 
     const text = new fabric.Text(this.labelText, {
-      left: 0, top: 0, fill: this.textColor, 
+      left: 10, 
+      top: 5, 
+      fill: this.textColor, 
       fontFamily: 'Open Sans',
     });
 
+    // Create a rounded rectangle background
+    const padding = 8;
+    const rect = new fabric.Rect({
+      left: 0,
+      top: 0,
+      width: text.width + padding * 2,
+      height: text.height + padding * 2,
+      fill: 'rgba(255, 255, 255, 0.2)',
+      rx: 8,
+      ry: 8
+    });
+
+    // Position text with padding
+    text.left = padding;
+    text.top = padding;
+
+    canvas.add(rect);
     canvas.add(text);
     return element;
   }

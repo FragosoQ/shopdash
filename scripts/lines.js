@@ -17,21 +17,8 @@ class Lines {
   }
 
   changeCountry() {
-    countries.index++;
-
-    if(countries.index >= this.total) {
-      countries.index = 0;
-    }
-
-    if(countries.selected) {
-      countries.selected.visible = false;
-    }
-
-    this.select();
-
-    groups.lineDots.children = [];
-    elements.lineDots = [];
-    this.createDots();
+    // Don't change country - keep Portugal line always visible
+    return;
   }
 
   createDots() {
@@ -51,27 +38,16 @@ class Lines {
   }
 
   select() {
-    const next = this.countries[countries.index];
-    const selected = groups.lines.getObjectByName(next);
+    // Always select Portugal
+    const portugalGroup = groups.lines.getObjectByName('Portugal');
 
-    // If there's no group matching the next country, pick the first available group
-    if (!selected) {
-      const first = groups.lines.children.length ? groups.lines.children[0] : null;
-      if (first) {
-        // update the countries index to reflect the selected group's position
-        const idx = this.countries.indexOf(first.name);
-        if (idx !== -1) countries.index = idx;
-        countries.selected = first;
-        countries.selected.visible = true;
-      } else {
-        // nothing to select
-        countries.selected = null;
-      }
-      return;
+    if (portugalGroup) {
+      countries.selected = portugalGroup;
+      countries.selected.visible = true;
+      countries.index = this.countries.indexOf('Portugal');
+    } else {
+      countries.selected = null;
     }
-
-    countries.selected = selected;
-    countries.selected.visible = true;
   }
 
   create() {
