@@ -165,24 +165,35 @@ canvas {
 	min-height: 0;
 	display: flex;
 	flex-direction: column;
+	overflow: hidden;
+	position: relative;
 }
 
 .info-panel-content-1 {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	width: 100%;
-	flex: 1;
 	padding: 10px;
 	box-sizing: border-box;
 	text-align: center;
+	overflow: hidden;
+	pointer-events: none;
 }
 
 .info-panel-content-1 .info-line {
-	font-size: 220px;
+	font-size: 11vw;
 	font-weight: bold;
-	
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	line-height: 1;
 }
 
 .info-panel-card-2 {
