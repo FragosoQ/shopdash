@@ -209,6 +209,61 @@ const updateEvoProgress = async () => {
 };
 
 /**
+ * Fetches info panel data from Google Sheets (Modelo sheet)
+ */
+const fetchInfoPanelData = async () => {
+    const SHEET_URL = `https://docs.google.com/spreadsheets/d/${chartConfig.spreadsheetId}/gviz/tq?tqx=out:csv&sheet=Modelo&range=A2:I2`;
+
+    try {
+        const response = await d3.text(SHEET_URL);
+        console.log('Modelo response:', response);
+        
+        // Parse CSV response
+        const values = response.split('\n')[0]?.split(',').map(v => v.replace(/^"|"$/g, '').trim()) || [];
+        
+        return {
+            a2: values[0] || '',
+            b2: values[1] || '',
+            c2: values[2] || '',
+            g2: values[6] || '', // Column G is index 6
+            i2: values[8] || ''  // Column I is index 8
+        };
+
+    } catch (error) {
+        console.error('Error fetching info panel data:', error);
+        return { a2: '', b2: '', c2: '', g2: '', i2: '' };
+    }
+};
+
+/**
+ * Updates info panel card with data
+ */
+const updateInfoPanel = async () => {
+    const data = await fetchInfoPanelData();
+    
+    // Update first card with A2
+    const infoPanelCard1 = document.querySelector('.info-panel-content-1');
+    if (infoPanelCard1) {
+        infoPanelCard1.innerHTML = `
+            <div class="info-line">${data.a2}</div>
+        `;
+    }
+    
+    // Update second card with B2, C2, G2, I2
+    const infoPanelCard2 = document.querySelector('.info-panel-content-2');
+    if (infoPanelCard2) {
+        infoPanelCard2.innerHTML = `
+            <div class="info-line">${data.b2}</div>
+            <div class="info-line">${data.c2}</div>
+            <div class="info-line">${data.g2}</div>
+            <div class="info-line">${data.i2}</div>
+        `;
+    }
+    
+    console.log('Info panel updated with:', data);
+};
+
+/**
  * Initializes progress bar
  */
 const initProgressBar = () => {
@@ -223,9 +278,11 @@ if (document.readyState === 'loading') {
         initCharts();
         initProgressBar();
         updateDestination();
+        updateInfoPanel();
     });
 } else {
     initCharts();
     initProgressBar();
     updateDestination();
+    updateInfoPanel();
 }
