@@ -71,7 +71,7 @@ class Lines {
           group.add(line.mesh);
         }
 
-        group.visible = false;
+        group.visible = true; // Portugal line always visible
         groups.lines.add(group);
       }
     }

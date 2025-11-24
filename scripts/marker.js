@@ -106,6 +106,7 @@ class Marker {
       top: 5, 
       fill: this.textColor, 
       fontFamily: 'Open Sans',
+      fontSize: 48
     });
 
     // Create a rounded rectangle background

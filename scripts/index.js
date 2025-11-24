@@ -266,6 +266,7 @@ function animate(app) {
     groups.map.visible = config.display.map;
     groups.markers.visible = config.display.markers;
     groups.points.visible = config.display.points;
+    groups.lines.visible = config.display.lines;
 
     for(let i = 0; i < elements.markerLabel.length; i++) {
       const label = elements.markerLabel[i];

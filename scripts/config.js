@@ -31,7 +31,7 @@ const config = {
 		markerPoint: true
 	},
 	dots: {
-		total: 30
+		total: 1
 	}
 }
 
