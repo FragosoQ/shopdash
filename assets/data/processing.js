@@ -112,7 +112,7 @@ const connections = {
 
 
 function getCountry(name, countries) {
-  return countries.find(c => c.name === name);
+  return countries.find(c => c.name.toUpperCase() === name.toUpperCase());
 }
 
 function getCountries(object, countries) {

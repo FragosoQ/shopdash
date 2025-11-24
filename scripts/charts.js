@@ -57,6 +57,51 @@ const fetchPercentage = async (sheetName) => {
 };
 
 /**
+ * Fetches destination name from Google Sheets
+ */
+const fetchDestination = async () => {
+    const SHEET_URL = `https://docs.google.com/spreadsheets/d/${chartConfig.spreadsheetId}/gviz/tq?tqx=out:csv&sheet=DESTINO&range=A2`;
+
+    try {
+        const response = await d3.text(SHEET_URL);
+        console.log('DESTINO response:', response);
+        
+        // Split by newlines and get first line (which is A2 data)
+        let destination = response.split('\n')[0]?.trim(); 
+
+        if (!destination) {
+            console.warn('Empty destination data.');
+            return 'Nigeria';
+        }
+
+        // Remove quotes if present
+        destination = destination.replace(/^"|"$/g, ''); 
+        
+        console.log('Fetched destination:', destination);
+        return destination;
+
+    } catch (error) {
+        console.error('Error fetching destination:', error);
+        return 'Nigeria'; 
+    }
+};
+
+/**
+ * Updates destination card (simplified - destination is now set before globe init)
+ */
+const updateDestination = async () => {
+    const destination = await fetchDestination();
+    const destinationTitle = document.getElementById('destination-title');
+    
+    if (destinationTitle) {
+        destinationTitle.textContent = destination;
+    }
+    
+    window.currentDestination = destination;
+    console.log('Destination card updated to:', destination);
+};
+
+/**
  * Draws a Donut Chart inside a container
  */
 const drawDonutChart = (containerId, percentage, fillColor) => {
@@ -177,8 +222,10 @@ if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         initCharts();
         initProgressBar();
+        updateDestination();
     });
 } else {
     initCharts();
     initProgressBar();
+    updateDestination();
 }

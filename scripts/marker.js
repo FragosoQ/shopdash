@@ -29,8 +29,12 @@ class Marker {
   }
 
   createLabel() {
-    // Only create label for Portugal and Nigeria
-    if (this.countryName !== 'Portugal' && this.countryName !== 'Nigeria') {
+    // Only create label for Portugal and the current destination (case-insensitive)
+    const destination = window.currentDestination || 'Nigeria';
+    const countryUpper = this.countryName.toUpperCase();
+    const destUpper = destination.toUpperCase();
+    
+    if (countryUpper !== 'PORTUGAL' && countryUpper !== destUpper) {
       this.label = null;
       return;
     }

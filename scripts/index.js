@@ -80,37 +80,92 @@ window.onresize = app.handleResize;
 
 async function preload() {
   try {
-    // const gridUrl = '../assets/data/grid.json';
-    // const gridRes = await fetch(gridUrl);
-    // const grid = await gridRes.json();
-    // data.grid = grid;
-
-    // const countryUrl = '../assets/data/countries.json';
-    // const countryRes = await fetch(countryUrl);
-    // const countries = await countryRes.json();
-    // data.countries = countries;
-
-    // const connectionsUrl = '../assets/data/connections.json';
-    // const connectionsRes = await fetch(connectionsUrl);
-    // const connections = await connectionsRes.json();
-    // data.connections = getCountries(connections, countries);    
-
+    console.log('=== PRELOAD START ===');
+    console.log('fetchDestination available?', typeof fetchDestination);
+    
+    // Fetch destination before connections.js loads
+    if (typeof fetchDestination === 'function') {
+      window.currentDestination = await fetchDestination();
+      console.log('✓ Preloaded destination:', window.currentDestination);
+    } else {
+      console.warn('⚠ fetchDestination not available, using default');
+      window.currentDestination = 'Nigeria';
+    }
+    
+    console.log('=== PRELOAD END - Destination set to:', window.currentDestination, '===');
     return true;
   } catch(error) {
-    console.log(error);
+    console.error('❌ Error in preload:', error);
+    window.currentDestination = 'Nigeria';
+    return true;
   }
 }
 
 
-function setup(app) {
+async function setup(app) {
+  // Fetch destination FIRST
+  console.log('=== SETUP: Fetching destination ===');
+  if (typeof fetchDestination === 'function') {
+    window.currentDestination = await fetchDestination();
+    console.log('✓ Destination fetched:', window.currentDestination);
+    
+    // Validate that destination exists in countries data
+    const destinationExists = data.countries && data.countries.some(country => 
+      country.name.toLowerCase() === window.currentDestination.toLowerCase()
+    );
+    
+    if (!destinationExists) {
+      console.warn('⚠ Destination "' + window.currentDestination + '" not found in countries data. Using Nigeria as fallback.');
+      console.log('Available countries:', data.countries.map(c => c.name).join(', '));
+      window.currentDestination = 'Nigeria';
+    }
+    
+    // Update connections with the validated destination
+    if (data.connections) {
+      data.connections.Portugal = [window.currentDestination];
+      console.log('✓ Updated Portugal connections to:', data.connections.Portugal);
+    }
+  } else {
+    console.warn('⚠ fetchDestination not available');
+    window.currentDestination = 'Nigeria';
+  }
+  
   // POSIÇÕES INICIAIS (Reset)
   const INITIAL_CAMERA_POS_X = -55;
   const INITIAL_CAMERA_POS_Y = 220;
   const INITIAL_CAMERA_POS_Z = 385;
   const INITIAL_CAMERA_ROT_X = THREE.Math.degToRad(20);
 
+  // Calculate midpoint rotation between Portugal and destination
+  let INITIAL_GLOBE_ROTATION_Y = THREE.Math.degToRad(-100); // Default
+  
+  if (data.countries) {
+    const portugal = data.countries.find(c => c.name.toUpperCase() === 'PORTUGAL');
+    const destination = data.countries.find(c => c.name.toUpperCase() === window.currentDestination.toUpperCase());
+    
+    if (portugal && destination) {
+      const portugalLon = parseFloat(portugal.longitude);
+      const destLon = parseFloat(destination.longitude);
+      
+      // Calculate midpoint longitude
+      let midLon = (portugalLon + destLon) / 2;
+      
+      // Handle dateline crossing
+      if (Math.abs(destLon - portugalLon) > 180) {
+        midLon = (portugalLon + destLon) / 2 + 180;
+        if (midLon > 180) midLon -= 360;
+      }
+      
+      // Convert to globe rotation (negative because globe rotates opposite)
+      INITIAL_GLOBE_ROTATION_Y = THREE.Math.degToRad(-midLon - 10);
+      console.log('✓ Globe centered between Portugal and ' + window.currentDestination);
+      console.log('  Portugal lon:', portugalLon, '| Dest lon:', destLon, '| Mid lon:', midLon);
+    } else {
+      console.warn('⚠ Could not find Portugal or ' + window.currentDestination + ' for rotation calculation');
+    }
+  }
+
   const INITIAL_GLOBE_ROTATION_X = THREE.Math.degToRad(10);
-  const INITIAL_GLOBE_ROTATION_Y = THREE.Math.degToRad(-100);
   const INITIAL_GLOBE_ROTATION_Z = THREE.Math.degToRad(0);
 
   const controllers = [];

@@ -55,6 +55,11 @@ class Lines {
 
     // Obtém as coordenadas de Portugal uma única vez
     const portugal = getCountry('Portugal', countries);
+    
+    if (!portugal) {
+      console.error('❌ Portugal not found in countries data');
+      return;
+    }
 
     for(let origin in connections) {
       // Verifica se a origem é Portugal
@@ -64,8 +69,16 @@ class Lines {
 
         for(let j in connections[origin]) {
           const endCountryName = connections[origin][j];
+          console.log('Looking for destination:', endCountryName);
           const end = getCountry(endCountryName, countries); // coordenadas do país de destino
-
+          
+          if (!end) {
+            console.error('❌ Destination country not found:', endCountryName);
+            console.log('Available countries (first 10):', countries.slice(0, 10).map(c => c.name).join(', '));
+            continue; // Skip this line
+          }
+          
+          console.log('✓ Found destination:', end.name, 'at', end.latitude, end.longitude);
           const line = new Line(portugal, end);
           elements.lines.push(line.mesh);
           group.add(line.mesh);
