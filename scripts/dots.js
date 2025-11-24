@@ -27,7 +27,7 @@ class Dot {
 		this.geometry = new THREE.SphereGeometry(this.radius, this.segments, this.rings);
 		this.material = new THREE.MeshBasicMaterial({color: '#00a2e8'});
 		this.material.transparent = true;
-		this.material.opacity = 0.65;
+		this.material.opacity = 1.65;
 
 		this.mesh = new THREE.Mesh(this.geometry, this.material);
 		this.mesh.visible = false;

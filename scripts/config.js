@@ -20,7 +20,7 @@ const config = {
 		globeMarkerColor: 'rgb(143, 216, 216)',
 		globeMarkerGlow: 'rgb(255, 255, 255)',
 		globeLines: 'rgb(255, 255, 255)',
-		globeLinesDots: 'rgb(255, 255, 255)'
+		globeLinesDots: '#00a2e8'
 	},
 	display: {
 		points: true,
