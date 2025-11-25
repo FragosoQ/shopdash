@@ -331,12 +331,16 @@ const PULSE_DURATION = 5000; // 5 segundos para completar a pulsação
  * Configura efeitos aleatórios (rotação ou pulsação) a cada 25 segundos
  */
 function setupPeriodicRotation() {
-  // Inicia o primeiro efeito após 25 segundos
-  setTimeout(() => {
+  console.log('Setting up periodic random effects (interval: 25s)');
+  
+  // Função que executa um efeito e agenda o próximo
+  function scheduleNextEffect() {
     startRandomEffect();
-    // Depois repete a cada 25 segundos
-    setInterval(startRandomEffect, EFFECT_INTERVAL);
-  }, EFFECT_INTERVAL);
+    setTimeout(scheduleNextEffect, EFFECT_INTERVAL);
+  }
+  
+  // Inicia o primeiro efeito após 25 segundos
+  setTimeout(scheduleNextEffect, EFFECT_INTERVAL);
 }
 
 function startRandomEffect() {
