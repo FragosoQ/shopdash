@@ -228,8 +228,8 @@ canvas {
 
 .status-indicator {
 	position: absolute;
-	right: 62px;
-	top: calc(25% - 35px);
+	right: 67px;
+	top: calc(25% - 40px);
 	height: 50%;
 	width: 14px;
 	border-radius: 4px;
