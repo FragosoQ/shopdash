@@ -186,16 +186,16 @@ const drawDonutChart = (containerId, percentage, fillColor) => {
         .attr('stop-color', 'rgba(255, 255, 255, 0.08)')
         .attr('stop-opacity', 1);
 
-    // Add filter for glow effect
+    // Add filter for glow effect (reduced to prevent overflow)
     const filter = defs.append('filter')
         .attr('id', `glow-${uniqueId}`)
-        .attr('x', '-50%')
-        .attr('y', '-50%')
-        .attr('width', '200%')
-        .attr('height', '200%');
+        .attr('x', '-20%')
+        .attr('y', '-20%')
+        .attr('width', '140%')
+        .attr('height', '140%');
     
     filter.append('feGaussianBlur')
-        .attr('stdDeviation', '3')
+        .attr('stdDeviation', '2')
         .attr('result', 'coloredBlur');
     
     const feMerge = filter.append('feMerge');
