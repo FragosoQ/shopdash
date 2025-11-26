@@ -148,6 +148,57 @@ const drawDonutChart = (containerId, percentage, fillColor) => {
         .append('g')
         .attr('transform', `translate(${size / 2}, ${size / 2})`);
 
+    // Add gradient definitions
+    const defs = svg.append('defs');
+    
+    // Radial gradient for filled portion
+    const fillGradient = defs.append('radialGradient')
+        .attr('id', `fill-gradient-${container.node().id}`)
+        .attr('cx', '30%')
+        .attr('cy', '30%');
+    
+    fillGradient.append('stop')
+        .attr('offset', '0%')
+        .attr('stop-color', d3.rgb(fillColor).brighter(0.8))
+        .attr('stop-opacity', 1);
+    
+    fillGradient.append('stop')
+        .attr('offset', '100%')
+        .attr('stop-color', fillColor)
+        .attr('stop-opacity', 1);
+    
+    // Radial gradient for empty portion (lighter, more glassy)
+    const emptyGradient = defs.append('radialGradient')
+        .attr('id', `empty-gradient-${container.node().id}`)
+        .attr('cx', '30%')
+        .attr('cy', '30%');
+    
+    emptyGradient.append('stop')
+        .attr('offset', '0%')
+        .attr('stop-color', 'rgba(255, 255, 255, 0.3)')
+        .attr('stop-opacity', 1);
+    
+    emptyGradient.append('stop')
+        .attr('offset', '100%')
+        .attr('stop-color', 'rgba(255, 255, 255, 0.08)')
+        .attr('stop-opacity', 1);
+
+    // Add filter for glow effect
+    const filter = defs.append('filter')
+        .attr('id', `glow-${container.node().id}`)
+        .attr('x', '-50%')
+        .attr('y', '-50%')
+        .attr('width', '200%')
+        .attr('height', '200%');
+    
+    filter.append('feGaussianBlur')
+        .attr('stdDeviation', '3')
+        .attr('result', 'coloredBlur');
+    
+    const feMerge = filter.append('feMerge');
+    feMerge.append('feMergeNode').attr('in', 'coloredBlur');
+    feMerge.append('feMergeNode').attr('in', 'SourceGraphic');
+
     const arcs = svg.selectAll('.arc')
         .data(pie(data))
         .enter()
@@ -156,8 +207,9 @@ const drawDonutChart = (containerId, percentage, fillColor) => {
 
     arcs.append('path')
         .attr('d', arc)
-        .attr('fill', (d, i) => i === 0 ? fillColor : 'rgba(255, 255, 255, 0.15)')
-        .attr('stroke', 'none');
+        .attr('fill', (d, i) => i === 0 ? `url(#fill-gradient-${container.node().id})` : `url(#empty-gradient-${container.node().id})`)
+        .attr('stroke', 'none')
+        .attr('filter', (d, i) => i === 0 ? `url(#glow-${container.node().id})` : 'none');
 
     svg.append('text')
         .attr('text-anchor', 'middle')
