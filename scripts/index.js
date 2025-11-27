@@ -521,22 +521,21 @@ function animate(app) {
     
     // Função de easing suave (sin wave) para transição ida e volta
     // Vai de 0 -> 1 -> 0
-    const colorProgress = Math.sin(progress * Math.PI);
+    const glowProgress = Math.sin(progress * Math.PI);
     
-    // Cor original (escura) e cor de destino (branco)
-    const originalColor = new THREE.Color(config.colors.globeColor);
-    const targetColor = new THREE.Color(0xffffff); // Branco
+    // Aumenta a opacidade do material para criar efeito de brilho
+    // Opacidade base: 1.0, máximo: 1.5 (mais brilhante)
+    const baseOpacity = 1.0;
+    const maxOpacity = 1.8;
+    const currentOpacity = baseOpacity + (glowProgress * (maxOpacity - baseOpacity));
     
-    // Interpola entre as cores
-    const currentColor = originalColor.clone().lerp(targetColor, colorProgress);
-    
-    // Aplica a cor interpolada ao globo
-    elements.globe.material.color.set(currentColor);
+    // Aplica a opacidade ao material do globo
+    elements.globe.material.opacity = currentOpacity;
     
     // Para quando completar a transição
     if (progress >= 1) {
-      // Restaura cor original
-      elements.globe.material.color.set(config.colors.globeColor);
+      // Restaura opacidade original
+      elements.globe.material.opacity = baseOpacity;
       isGlowing = false;
       console.log('Globe glow transition complete');
     }
