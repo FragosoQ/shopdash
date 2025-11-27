@@ -443,7 +443,7 @@ canvas {
 	}
 	
 	.destination-card {
-		top: 100px;
+		top: 120px;
 		right: 10px;
 		left: 50%;
 		transform: translateX(-50%);
@@ -513,6 +513,10 @@ canvas {
 	
 	.info-panel-content-1 .info-line {
 		font-size: 60px;
+	}
+	
+	.destination-card {
+		top: 110px;
 	}
 }
 
