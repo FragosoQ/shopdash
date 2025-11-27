@@ -83,7 +83,7 @@ canvas {
 	top: 100px;
 	left: 50px;
 	/*background: linear-gradient(90deg, rgba(128, 165, 220, 0.1) 0%, rgba(75, 140, 242, 0.1) 10%, rgba(0, 123, 255, 0.3) 100%);*/
-	background-color: rgb(243, 241, 241, 0.09);
+	background-color: rgb(243, 241, 241, 0.1);
 	backdrop-filter: blur(20px);
 	border: 1px solid rgba(238, 232, 232, 0.25);
 	border-radius: 16px;
