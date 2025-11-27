@@ -434,22 +434,22 @@ function animate(app) {
     const progress = Math.min(elapsed / PULSE_DURATION, 1);
     
     // Simula batimento cardíaco duplicado: duas sequências de batimento
-    // Padrão: BOOM-boom...pause...BOOM-boom...pause...BOOM-boom...pause...BOOM-boom (versão suave)
+    // Padrão: BOOM-boom...pause...BOOM-boom...pause...BOOM-boom...pause...BOOM-boom (versão ultra suave)
     let scale = initialPointsScale;
     
     // Primeiro batimento (0% a 50%)
     const firstBeatProgress = (progress % 0.5) * 2; // Normaliza para 0-1
     
     if (firstBeatProgress < 0.3) {
-      // Primeira pulsação forte - suave
+      // Primeira pulsação forte - ultra suave
       const localProgress = firstBeatProgress / 0.3;
       const easeProgress = Math.sin(localProgress * Math.PI);
-      scale = initialPointsScale + (easeProgress * 0.15);
+      scale = initialPointsScale + (easeProgress * 0.08);
     } else if (firstBeatProgress >= 0.4 && firstBeatProgress < 0.6) {
-      // Segunda pulsação mais fraca - muito suave
+      // Segunda pulsação mais fraca - extremamente suave
       const localProgress = (firstBeatProgress - 0.4) / 0.2;
       const easeProgress = Math.sin(localProgress * Math.PI);
-      scale = initialPointsScale + (easeProgress * 0.08);
+      scale = initialPointsScale + (easeProgress * 0.04);
     } else {
       // Pausa entre batimentos
       scale = initialPointsScale;
