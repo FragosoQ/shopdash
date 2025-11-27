@@ -218,6 +218,20 @@ canvas {
 	box-sizing: border-box;
 }
 
+.info-panel-card-3 {
+	flex: 0 0 25%;
+	min-height: 0;
+}
+
+.info-panel-content-3 {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	width: 100%;
+	padding: 5px;
+	box-sizing: border-box;
+}
+
 .info-line {
 	color: white;
 	font-size: 16px;
