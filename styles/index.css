@@ -164,6 +164,7 @@ canvas {
 	gap: 20px;
 	align-items: stretch;
 	min-height: 0;
+	max-height: 180px;
 }
 
 .info-panel-card-1 {
