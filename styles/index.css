@@ -8,7 +8,10 @@ html {
 	/*background: radial-gradient(circle, #01061a, #000000);/*
 	/*background: radial-gradient(circle, #a8c5e8 0%, #6ba3f5 0%, #3a94ff 100%);*/
 	background: radial-gradient(circle, #020d3a, #000000);/*
-	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	width: 100vw;
+	height: 100vh;
 	
 }
 
