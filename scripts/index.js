@@ -434,19 +434,19 @@ function animate(app) {
     const progress = Math.min(elapsed / PULSE_DURATION, 1);
     
     // Simula batimento cardíaco: duas pulsações rápidas seguidas de pausa
-    // Padrão: BOOM-boom...pause...BOOM-boom...pause
+    // Padrão: BOOM-boom...pause...BOOM-boom...pause (versão suave)
     let scale = initialPointsScale;
     
     if (progress < 0.15) {
-      // Primeira pulsação forte (0% a 15%)
+      // Primeira pulsação forte (0% a 15%) - suave
       const localProgress = progress / 0.15;
       const easeProgress = Math.sin(localProgress * Math.PI);
-      scale = initialPointsScale + (easeProgress * 0.6);
+      scale = initialPointsScale + (easeProgress * 0.15);
     } else if (progress >= 0.2 && progress < 0.3) {
-      // Segunda pulsação mais fraca (20% a 30%)
+      // Segunda pulsação mais fraca (20% a 30%) - muito suave
       const localProgress = (progress - 0.2) / 0.1;
       const easeProgress = Math.sin(localProgress * Math.PI);
-      scale = initialPointsScale + (easeProgress * 0.3);
+      scale = initialPointsScale + (easeProgress * 0.08);
     } else {
       // Pausa entre batimentos
       scale = initialPointsScale;
