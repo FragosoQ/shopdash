@@ -245,6 +245,7 @@ canvas {
 	align-items: stretch;
 	height: 100%;
 	flex-shrink: 0;
+	margin-left: 20px;
 }
 
 .status-indicator {
