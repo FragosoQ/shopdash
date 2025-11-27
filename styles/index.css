@@ -402,12 +402,19 @@ canvas {
 	.grid-container {
 		position: fixed;
 		top: 120px;
-		right: 10px;
-		left: 10px;
+		right: auto;
+		left: 50%;
+		transform: translateX(-50%);
 		bottom: 80px;
+		width: 90%;
+		max-width: 400px;
 		grid-template-columns: 1fr;
 		grid-template-rows: repeat(6, 1fr) auto;
 		gap: 10px;
+	}
+	
+	.grid-item {
+		transform: scale(0.9);
 	}
 	
 	.bottom-section {
