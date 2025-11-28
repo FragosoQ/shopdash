@@ -528,6 +528,15 @@ canvas {
 	}
 }
 
-
-
+@media (min-width: 1920px) {
+  .top-left-logo {
+    width: 180px !important;
+    max-width: 180px !important;
+    height: auto;
+  }
+  .top-right-logo {
+    width: 180px !important;
+    max-width: 180px !important;
+    height: auto;
+  }
 }
