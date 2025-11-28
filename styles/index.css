@@ -61,6 +61,7 @@ canvas {
 	/* 10% larger than 6.24vw */
 	width: 6.864vw;
   height: auto;
+  max-width: 180px;
   z-index: 1000;
   background: transparent;
   cursor: pointer;
