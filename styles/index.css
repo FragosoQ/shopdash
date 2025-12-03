@@ -280,7 +280,7 @@ canvas {
 	right: 32px;
 	top: calc(25% - 21px);
 	height: 50%;
-	width: 20px;
+	width: 18px;
 	border-radius: 4px;
 	transition: background-color 0.3s ease, box-shadow 0.3s ease;
 	z-index: 1;
