@@ -12,8 +12,7 @@ html {
 	overflow-y: hidden;
 	width: 100vw;
 	height: 100vh;
-	position: relative;
-	transform-origin: 0 0;
+	
 }
 
 canvas {
@@ -126,7 +125,7 @@ canvas {
 	right: 50px;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	grid-template-rows: repeat(2, 1fr);
+	grid-template-rows: 1fr 1fr auto;
 	gap: 20px;
 	z-index: 1000;
 }
