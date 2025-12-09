@@ -77,21 +77,28 @@
       50% { box-shadow: 0 0 20px rgba(5, 187, 237, 0.6); }
     }
 
-    /* --- GRID CONTAINER (Lado Direito) --- */
+/* --- GRID CONTAINER (Lado Direito) --- */
     .grid-container {
       position: fixed;
       top: 15vh;
       bottom: 5vh;
       right: 4vw;
-      /* Largura controlada para não esticar na TV */
-      width: clamp(300px, 28vw, 500px);
+      
+      /* --- ALTERAÇÃO AQUI --- */
+      /* Aumentei significativamente a largura */
+      /* Mínimo: 600px (era 300px) */
+      /* Ideal: 50vw (metade do ecrã - era 28vw) */
+      /* Máximo: 1000px (era 500px) */
+      width: clamp(600px, 50vw, 1000px);
+      
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      /* Mantém as 3 colunas, agora mais largas */
+      grid-template-columns: repeat(3, 1fr); 
       grid-template-rows: 1fr 1fr auto;
       gap: 1.5vh;
       z-index: 1000;
     }
-
+    
     .grid-item {
       background-color: rgba(243, 241, 241, 0.09);
       backdrop-filter: blur(20px);
