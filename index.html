@@ -78,17 +78,15 @@
     /* --- GRID CONTAINER --- */
     .grid-container {
       position: fixed;
-      top: 10vh;
+      top: 8vh; 
       bottom: 5vh;
       right: 4vw;
       width: clamp(600px, 50vw, 1000px);
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: 1fr 1fr auto auto; /* Adicionado mais um 'auto' para a barra */
+      grid-template-rows: 1fr 1fr auto auto;
       gap: 1.5vh;
       z-index: 1000;
-      /* No desktop, deixamos o overflow visível para a barra fixa sair se necessário, 
-         mas como ela é fixed no desktop, não afeta a grid */
     }
 
     .grid-item {
@@ -170,7 +168,7 @@
         line-height: 1.3;
     }
 
-    /* --- BOTTOM SECTION (1x4) --- */
+    /* --- BOTTOM SECTION --- */
     .bottom-section {
       grid-column: 1 / 4;
       display: grid;
@@ -200,6 +198,7 @@
         display: block;
     }
 
+    /* --- IMAGE + STATUS WRAPPER (CORREÇÃO DE DIMENSÃO) --- */
     .info-panel-image-container {
       position: relative;
       width: 100%;
@@ -209,42 +208,49 @@
       align-items: center;
     }
 
+    /* O Envelope que ajusta ao tamanho da imagem */
+    .image-wrapper {
+      position: relative;
+      height: 100%; /* Força a altura máxima do card */
+      width: auto;  /* A largura ajusta-se à imagem */
+      display: flex;
+      align-items: center;
+    }
+
     .info-panel-image {
-      max-width: 100%;
-      max-height: 100%;
+      height: 100%; /* Ocupa toda a altura disponível */
+      width: auto;  /* Mantém a proporção */
+      max-width: 100%; /* Garante que não sai para fora no mobile */
       object-fit: contain;
       padding: 5px;
     }
 
     .status-indicator {
       position: absolute;
-      right: 48px;
-      top: 28%;
+      right: 28px; /* Cola à direita do wrapper da imagem */
+      top: 29%;
       transform: translateY(-50%);
-      height: 45%;
+      
+      /* A altura agora é relativa à IMAGEM, não ao card inteiro */
+      height: 50%; 
+      
       width: 8px;
       border-radius: 4px;
-      z-index: -1;
+      z-index: -5;
     }
+    
     .status-indicator.status-on { background-color: #00ff00; box-shadow: 0 0 10px #00ff00; }
     .status-indicator.status-off { background-color: #ff0000; box-shadow: 0 0 10px #ff0000; }
 
- /* --- PROGRESS BAR --- */
-    /* Configuração Padrão (Desktop/TV) */
+    /* --- PROGRESS BAR (CENTRADA COM O GLOBO) --- */
     .progress-bar-container {
       position: fixed;
       bottom: 5vh;
-      
-      /* --- O SEGREDO DO CENTRO --- */
-      /* Definimos a esquerda a 25% (o centro da área livre do globo) */
       left: 25vw; 
-      /* Usamos o transform para garantir que é o MEIO da barra que fica nos 25% */
       transform: translateX(-50%);
-      
       width: clamp(200px, 30vw, 500px);
       z-index: 1000;
-      /* Pointer events none garante que não bloqueia cliques no globo se for transparente */
-      pointer-events: none; 
+      pointer-events: none;
     }
 
     .progress-bar-wrapper {
@@ -253,6 +259,7 @@
       background-color: rgba(255, 255, 255, 0.1);
       border-radius: 20px;
       overflow: hidden;
+      pointer-events: auto;
     }
 
     .progress-bar-fill {
@@ -266,7 +273,6 @@
     .dg .close-button, .dg .close, .dg .title { display: none !important; }
 
     /* --- MEDIA QUERIES --- */
-    
     @media (max-width: 1024px) {
       .grid-container {
         width: 35vw;
@@ -286,36 +292,27 @@
       .grid-container {
         top: auto; bottom: 20px; right: 10px; left: 10px;
         width: auto;
-        /* Mobile: 3 colunas, mas vamos fazer span */
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: auto;
         height: auto;
         gap: 8px;
-        /* Permitir scroll se necessário, embora não deva precisar */
         overflow-y: visible; 
       }
       
       .bottom-section { 
           height: auto; 
-          /* Garante que a bottom section ocupe toda a largura antes da barra */
           grid-column: 1 / -1; 
       }
       
-      /* --- MAGIC MOVE DO PROGRESS BAR NO MOBILE --- */
       .progress-bar-container {
-        /* Removemos o fixed */
         position: relative !important;
-        /* Removemos coordenadas fixas */
         bottom: auto;
         left: auto;
         transform: none;
-        
-        /* Ajuste de largura e posição na grid */
         width: 100% !important;
-        margin-top: 15px; /* Espaço entre a grid e a barra */
-        
-        /* Fazemos a barra ocupar toda a largura da grid (3 colunas) */
+        margin-top: 15px;
         grid-column: 1 / -1; 
+        pointer-events: auto;
       }
     }
   </style>
@@ -394,8 +391,10 @@
       </div>
       <div class="grid-item info-panel-card-4">
         <div class="info-panel-image-container">
-          <div class="status-indicator" id="status-indicator"></div>
-          <img src="https://static.wixstatic.com/media/a6967f_874354ad69c5461eafd229ab23540233~mv2.png" alt="Info" class="info-panel-image" />
+          <div class="image-wrapper">
+             <div class="status-indicator" id="status-indicator"></div>
+             <img src="https://static.wixstatic.com/media/a6967f_874354ad69c5461eafd229ab23540233~mv2.png" alt="Info" class="info-panel-image" />
+          </div>
         </div>
       </div>
     </div>
