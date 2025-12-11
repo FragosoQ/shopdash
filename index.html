@@ -223,22 +223,6 @@
       padding: 5px;
     }
 
-    .status-indicator {
-      position: absolute;
-      right: 5px; 
-      top: 50%;
-      transform: translateY(-50%);
-      height: 60%; 
-      width: auto;
-      z-index: 5;
-      display: none;
-    }
-    
-    .status-indicator.status-on,
-    .status-indicator.status-off {
-      display: block;
-    }
-
     /* --- PROGRESS BAR (Desktop) --- */
     .progress-bar-container {
       position: fixed;
@@ -398,10 +382,7 @@
       </div>
       <div class="grid-item info-panel-card-4">
         <div class="info-panel-image-container">
-          <div class="image-wrapper">
-             <img class="status-indicator" id="status-indicator" src="" alt="Status" />
-             <img src="https://static.wixstatic.com/media/a6967f_874354ad69c5461eafd229ab23540233~mv2.png" alt="Info" class="info-panel-image" />
-          </div>
+          <img id="status-indicator" src="" alt="Status" class="info-panel-image" />
         </div>
       </div>
     </div>

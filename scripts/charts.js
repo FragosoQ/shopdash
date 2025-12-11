@@ -309,14 +309,11 @@ const updateInfoPanel = async () => {
     const statusIndicator = document.getElementById('status-indicator');
     if (statusIndicator) {
         const status = data.j2.toUpperCase();
-        statusIndicator.classList.remove('status-on', 'status-off');
         
         if (status === 'ON') {
-            statusIndicator.classList.add('status-on');
             statusIndicator.src = 'https://static.wixstatic.com/media/a6967f_e69c4b86d193485596b9d3d2d49625c3~mv2.png';
             statusIndicator.alt = 'Status ON';
         } else if (status === 'OFF') {
-            statusIndicator.classList.add('status-off');
             statusIndicator.src = 'https://static.wixstatic.com/media/a6967f_226d67906a30456d92ac9b34c151654a~mv2.png';
             statusIndicator.alt = 'Status OFF';
         }
