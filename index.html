@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="styles/index.css">
 
   <style>
-    /* --- CSS DE CORREÇÃO DE RESPONSIVIDADE (TV 65") --- */
+    /* --- CSS GERAL --- */
     
     body, html {
       margin: 0;
@@ -151,7 +151,6 @@
       gap: 4px;
     }
 
-    /* Alinhamento Esquerda (Planeamento) */
     .info-panel-card-2 .card-title {
         text-align: left !important;
         padding-left: 10px;
@@ -198,7 +197,7 @@
         display: block;
     }
 
-    /* --- IMAGE + STATUS WRAPPER (CORREÇÃO DE DIMENSÃO) --- */
+    /* --- IMAGE + STATUS WRAPPER --- */
     .info-panel-image-container {
       position: relative;
       width: 100%;
@@ -208,41 +207,39 @@
       align-items: center;
     }
 
-    /* O Envelope que ajusta ao tamanho da imagem */
     .image-wrapper {
       position: relative;
-      height: 100%; /* Força a altura máxima do card */
-      width: auto;  /* A largura ajusta-se à imagem */
+      height: 100%; 
+      width: auto;
       display: flex;
       align-items: center;
     }
 
     .info-panel-image {
-      height: 100%; /* Ocupa toda a altura disponível */
-      width: auto;  /* Mantém a proporção */
-      max-width: 100%; /* Garante que não sai para fora no mobile */
+      height: 100%; 
+      width: auto; 
+      max-width: 100%;
       object-fit: contain;
       padding: 5px;
     }
 
     .status-indicator {
       position: absolute;
-      right: 28px; /* Cola à direita do wrapper da imagem */
-      top: 29%;
+      right: 5px; 
+      top: 50%;
       transform: translateY(-50%);
-      
-      /* A altura agora é relativa à IMAGEM, não ao card inteiro */
-      height: 50%; 
-      
-      width: 8px;
-      border-radius: 4px;
-      z-index: -5;
+      height: 60%; 
+      width: auto;
+      z-index: 5;
+      display: none;
     }
     
-    .status-indicator.status-on { background-color: #00ff00; box-shadow: 0 0 10px #00ff00; }
-    .status-indicator.status-off { background-color: #ff0000; box-shadow: 0 0 10px #ff0000; }
+    .status-indicator.status-on,
+    .status-indicator.status-off {
+      display: block;
+    }
 
-    /* --- PROGRESS BAR (CENTRADA COM O GLOBO) --- */
+    /* --- PROGRESS BAR (Desktop) --- */
     .progress-bar-container {
       position: fixed;
       bottom: 5vh;
@@ -272,7 +269,7 @@
     .dg.a { margin-top: 10px; }
     .dg .close-button, .dg .close, .dg .title { display: none !important; }
 
-    /* --- MEDIA QUERIES --- */
+    /* --- MEDIA QUERIES (MOBILE) --- */
     @media (max-width: 1024px) {
       .grid-container {
         width: 35vw;
@@ -299,9 +296,19 @@
         overflow-y: visible; 
       }
       
+      /* --- CORREÇÃO DO LAYOUT MOBILE --- */
       .bottom-section { 
           height: auto; 
           grid-column: 1 / -1; 
+          
+          /* ALTERAÇÃO: Passa para 2 colunas para a imagem não ficar minúscula */
+          grid-template-columns: repeat(2, 1fr); 
+      }
+      
+      /* Ajuste do indicador no mobile para não ficar demasiado grosso */
+      .status-indicator {
+          width: 6px; /* Ligeiramente mais fino no mobile */
+          right: 3px; /* Mais colado à imagem */
       }
       
       .progress-bar-container {
@@ -392,7 +399,7 @@
       <div class="grid-item info-panel-card-4">
         <div class="info-panel-image-container">
           <div class="image-wrapper">
-             <div class="status-indicator" id="status-indicator"></div>
+             <img class="status-indicator" id="status-indicator" src="" alt="Status" />
              <img src="https://static.wixstatic.com/media/a6967f_874354ad69c5461eafd229ab23540233~mv2.png" alt="Info" class="info-panel-image" />
           </div>
         </div>

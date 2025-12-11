@@ -145,13 +145,13 @@ canvas {
 /* STATUS INDICATOR */
 .status-indicator {
     position: absolute;
-    right: 10px;
-    top: 50%;
+    right: 6px;;
+    top: 42%;
     transform: translateY(-50%);
     height: 40%;
     width: 8px;
     border-radius: 4px;
-    z-index: 5;
+    z-index: -5;
 }
 .status-indicator.status-on { background-color: #00ff00; box-shadow: 0 0 10px #00ff00; }
 .status-indicator.status-off { background-color: #ff0000; box-shadow: 0 0 10px #ff0000; }
@@ -244,4 +244,6 @@ canvas {
         transform: translateX(-50%);
         bottom: 180px; /* Acima do grid no mobile */
     }
+
+
 }
