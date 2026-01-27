@@ -245,10 +245,10 @@ const initCharts = () => {
 };
 
 /**
- * Updates EVO progress bar
+ * Updates EVO progress bar (Column Y)
  */
 const updateEvoProgress = async () => {
-    const percentage = await fetchPercentage('EVO');
+    const percentage = await fetchPercentage('Y');
     const progressBar = document.getElementById('evo-progress');
     
     if (progressBar) {
