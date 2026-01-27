@@ -592,7 +592,8 @@ function animate(app) {
   if(elements.lineDots) {
     for(let i = 0; i < elements.lineDots.length; i++) {
       const dot = elements.lineDots[i];
-      dot.material.color.set(config.colors.globeLinesDots);
+      // Don't apply color to sprites - they use texture images
+      // Sprites don't have material.color property in the same way
       dot.animate();
     }
   }

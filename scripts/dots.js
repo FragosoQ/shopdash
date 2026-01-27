@@ -20,16 +20,20 @@ class Dots {
 
 class Dot {
 	constructor() {
-		this.radius = 3;
-		this.segments = 32;
-		this.rings = 32;
-
-		this.geometry = new THREE.SphereGeometry(this.radius, this.segments, this.rings);
-		this.material = new THREE.MeshBasicMaterial({color: '#00a2e8'});
-		this.material.transparent = true;
-		this.material.opacity = 1.65;
-
-		this.mesh = new THREE.Mesh(this.geometry, this.material);
+		// Create sprite with image texture instead of sphere
+		const textureLoader = new THREE.TextureLoader();
+		const texture = textureLoader.load('https://static.wixstatic.com/media/a6967f_034c4bb41e814fc7b03969408024e9a1~mv2.png');
+		
+		const spriteMaterial = new THREE.SpriteMaterial({
+			map: texture,
+			transparent: true,
+			opacity: 1.0,
+			color: 0xffffff, // White color to prevent any tinting
+			blending: THREE.NormalBlending
+		});
+		
+		this.mesh = new THREE.Sprite(spriteMaterial);
+		this.mesh.scale.set(10, 10, 1); // Square scale to maintain aspect ratio
 		this.mesh.visible = false;
 
 		this._path = null;
