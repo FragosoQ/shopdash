@@ -13,7 +13,7 @@ const chartConfig = {
         chart1: 'CUBA',
         chart2: 'INTERIORES',
         chart3: 'TESTES',
-        chart4: 'EXTERIORES',
+        chart4: 'ENVOLVENTES',
         chart5: 'ESTRUTURA',
         chart6: 'ÁREA TÉCNICA'
     }
