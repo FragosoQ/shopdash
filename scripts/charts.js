@@ -277,26 +277,26 @@ const fetchInfoPanelData = async () => {
             x: values[23] || '',     // Column X is index 23
             o: values[14] || '',     // Column O is index 14
             status: values[34] || '', // Column AI is index 34 (STATUS)
-            diasPrazo: parseFloat(values[37]) || 0,      // Column AL is index 37 (Dias Prazo)
-            diasUsados: parseFloat(values[38]) || 0,     // Column AM is index 38 (Dias Usados)
-            diasDisponiveis: parseFloat(values[39]) || 0 // Column AN is index 39 (Dias Disponíveis)
+            diasPrazo: parseFloat(values[37]) || 0,   // Column AL is index 37 (Dias Prazo)
+            diasUsados: parseFloat(values[38]) || 0,  // Column AM is index 38 (Dias Usados)
+            folga: parseFloat(values[39]) || 0        // Column AN is index 39 (Folga)
         };
 
     } catch (error) {
         console.error('Error fetching info panel data:', error);
-        return { lote: '', e: '', i: '', x: '', o: '', status: '', diasPrazo: 0, diasUsados: 0, diasDisponiveis: 0 };
+        return { lote: '', e: '', i: '', x: '', o: '', status: '', diasPrazo: 0, diasUsados: 0, folga: 0 };
     }
 };
 
 /**
  * Updates GOAL chart with data from PM1
  */
-const updateGoalChart = (diasPrazo, diasUsados, diasDisponiveis) => {
-    // Determine color for middle ring (amarelo se AM > AL)
+const updateGoalChart = (diasPrazo, diasUsados, folga) => {
+    // Determine color for middle ring (amarelo se Dias Usados > Dias Prazo)
     const middleColor = diasUsados > diasPrazo ? '#FFD700' : '#00a2e8';
     
-    // Determine color for inner ring (vermelho se AN = 0)
-    const innerColor = diasDisponiveis === 0 ? '#FF0000' : '#80a5dc';
+    // Determine color for inner ring (vermelho se Folga = 0)
+    const innerColor = folga === 0 ? '#FF0000' : '#80a5dc';
     
     // Maximum value for all rings is diasPrazo + 4
     const maxValue = diasPrazo + 4;
@@ -312,7 +312,7 @@ const updateGoalChart = (diasPrazo, diasUsados, diasDisponiveis) => {
     
     // Inner ring: r=42, circumference = 263.89
     const innerCircumference = 2 * Math.PI * 42;
-    const innerDashArray = maxValue > 0 ? `${(diasDisponiveis / maxValue) * innerCircumference} ${innerCircumference}` : '0 263.89';
+    const innerDashArray = maxValue > 0 ? `${(folga / maxValue) * innerCircumference} ${innerCircumference}` : '0 263.89';
     
     // Update SVG circles
     const svg = document.querySelector('.goal-chart');
@@ -327,7 +327,7 @@ const updateGoalChart = (diasPrazo, diasUsados, diasDisponiveis) => {
             circles[1].setAttribute('stroke-dasharray', middleDashArray);
             circles[1].setAttribute('stroke', middleColor);
             
-            // Inner circle (AN - Dias Disponíveis)
+            // Inner circle (AN - Folga)
             circles[2].setAttribute('stroke-dasharray', innerDashArray);
             circles[2].setAttribute('stroke', innerColor);
         }
@@ -375,7 +375,7 @@ const updateInfoPanel = async () => {
     }
     
     // Update GOAL chart
-    updateGoalChart(data.diasPrazo, data.diasUsados, data.diasDisponiveis);
+    updateGoalChart(data.diasPrazo, data.diasUsados, data.folga);
     
     console.log('Info panel updated with:', data);
 };
