@@ -271,17 +271,17 @@ const fetchInfoPanelData = async () => {
         const values = response.split('\n')[0]?.split(',').map(v => v.replace(/^"|"$/g, '').trim()) || [];
         
         return {
-            a2: values[0] || '',
-            b2: values[1] || '',
-            c2: values[2] || '',
-            g2: values[6] || '', // Column G is index 6
-            i2: values[8] || '', // Column I is index 8
+            ah: values[33] || '', // Column AH is index 33
+            e: values[4] || '',   // Column E is index 4
+            i: values[8] || '',   // Column I is index 8
+            x: values[23] || '',  // Column X is index 23
+            o: values[14] || '',  // Column O is index 14
             status: values[34] || ''  // Column AI is index 34 (STATUS)
         };
 
     } catch (error) {
         console.error('Error fetching info panel data:', error);
-        return { a2: '', b2: '', c2: '', g2: '', i2: '', status: '' };
+        return { ah: '', e: '', i: '', x: '', o: '', status: '' };
     }
 };
 
@@ -299,14 +299,15 @@ const updateInfoPanel = async () => {
         `;
     }
     
-    // Update second card with B2, C2, G2, I2
+    // Update second card with AH, E, I, X, O
     const infoPanelCard2 = document.querySelector('.info-panel-content-2');
     if (infoPanelCard2) {
         infoPanelCard2.innerHTML = `
-            <div class="info-line">${data.b2}</div>
-            <div class="info-line">${data.c2}</div>
-            <div class="info-line">${data.g2}</div>
-            <div class="info-line">${data.i2}</div>
+            <div class="info-line">${data.ah}</div>
+            <div class="info-line">${data.e}</div>
+            <div class="info-line">${data.i}</div>
+            <div class="info-line">${data.x}</div>
+            <div class="info-line">${data.o}</div>
         `;
     }
     
