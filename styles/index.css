@@ -197,7 +197,7 @@ canvas {
 /* PROGRESS BAR */
 .progress-bar-container {
     position: fixed;
-    bottom: 5vh;
+    bottom: calc(5vh + 5px);
     left: 4vw;
     width: clamp(200px, 40vw, 600px); /* Largura fluida */
     z-index: 1000;
